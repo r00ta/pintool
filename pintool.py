@@ -16,9 +16,9 @@ import re
 
 
 #configure by the user
-PIN = "./pin-2.13-62732-gcc.4.4.7-linux/pin"
-INSCOUNT32 = "./pin-2.13-62732-gcc.4.4.7-linux/inscount0.so"
-INSCOUNT64 = "./pin-2.13-62732-gcc.4.4.7-linux/source/tools/ManualExamples/obj-intel64/inscount0.so"
+PIN = "./pin-3.0-76991-gcc-linux/pin"
+INSCOUNT32 = "./pin-3.0-76991-gcc-linux/source/tools/ManualExamples/obj-ia32/inscount0.so"
+INSCOUNT64 = "./pin-3.0-76991-gcc-linux/source/tools/ManualExamples/obj-intel64/inscount0.so"
 
 
 def start():
@@ -32,6 +32,7 @@ def start():
 	parser.add_argument('-i', dest='initpass', type=str, nargs=1, default='', help='Inicial password characters, example -i CTF{')
 	parser.add_argument('-s', dest='simbol', type=str, nargs=1, default='_', help='Simbol for complete all password (Default: _ )')
 	parser.add_argument('-d', dest='expression', type=str, nargs=1, default='!= 0', help="Difference between instructions that are successful or not (Default: != 0, example -d '== -12', -d '=> 900', -d '<= 17' or -d '!= 32')")
+	parser.add_argument('-argInput', dest='argInput',type=bool,nargs=1,default=False, help="Binary gets input from argv")
 	parser.add_argument('Filename',help='Program for playing with Pin Tool')
 
 
@@ -71,7 +72,10 @@ def getCharset(num,addchar):
 
 def pin(passwd):
 	try:
-		command = "echo " + passwd + " | " + PIN + " -t " + INSCOUNT + " -- ./"+ args.Filename + " ; cat inscount.out"
+		if args.argInput == False:
+			command = "echo " + passwd + " | " + PIN + " -t " + INSCOUNT + " -- ./"+ args.Filename + " ; cat inscount.out"  #STDIN
+		else:
+			command = PIN + " -t " + INSCOUNT + " -- ./"+ args.Filename + " $(echo " + passwd + ") ; cat inscount.out"  #ARGV!!
 		output = subprocess.check_output(command,shell=True,stderr=subprocess.PIPE)
 	except:
 		print "Unexpected error:", sys.exc_info()[0]
