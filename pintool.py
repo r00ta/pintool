@@ -32,9 +32,9 @@ def start():
 	parser.add_argument('-i', dest='initpass', type=str, nargs=1, default='', help='Inicial password characters, example -i CTF{')
 	parser.add_argument('-s', dest='simbol', type=str, nargs=1, default='_', help='Simbol for complete all password (Default: _ )')
 	parser.add_argument('-d', dest='expression', type=str, nargs=1, default='!= 0', help="Difference between instructions that are successful or not (Default: != 0, example -d '== -12', -d '=> 900', -d '<= 17' or -d '!= 32')")
-	parser.add_argument('-argInput', dest='argInput',type=bool,nargs=1,default=False, help="Binary gets input from argv")
+	parser.add_argument('--argInput', dest='argInput', action='store_true', help="Binary gets input from argv")
 	parser.add_argument('Filename',help='Program for playing with Pin Tool')
-
+	parser.set_defaults(argInput=False)
 
 	if len(sys.argv) < 2:
 		parser.print_help()
