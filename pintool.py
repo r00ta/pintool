@@ -16,9 +16,9 @@ import re
 
 
 #configure by the user
-PIN = "./pin-3.0-76991-gcc-linux/pin"
-INSCOUNT32 = "./pin-3.0-76991-gcc-linux/source/tools/ManualExamples/obj-ia32/inscount0.so"
-INSCOUNT64 = "./pin-3.0-76991-gcc-linux/source/tools/ManualExamples/obj-intel64/inscount0.so"
+PIN = "../pin-3.0-76991-gcc-linux/pin"
+INSCOUNT32 = "../pin-3.0-76991-gcc-linux/source/tools/ManualExamples/obj-ia32/inscount0.so"
+INSCOUNT64 = "../pin-3.0-76991-gcc-linux/source/tools/ManualExamples/obj-intel64/inscount0.so"
 
 
 def start():
